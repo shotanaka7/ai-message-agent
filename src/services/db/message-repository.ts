@@ -77,3 +77,20 @@ export async function getMessageCount(): Promise<number> {
   const [result] = await db.select<[{ count: number }]>('SELECT COUNT(*) as count FROM messages');
   return result.count;
 }
+
+export async function getMessageCountByProject(projectId: string): Promise<number> {
+  const db = await getDb();
+  const [result] = await db.select<[{ count: number }]>(
+    'SELECT COUNT(*) as count FROM messages WHERE project_id = ?',
+    [projectId]
+  );
+  return result.count;
+}
+
+export async function getUnclassifiedCount(): Promise<number> {
+  const db = await getDb();
+  const [result] = await db.select<[{ count: number }]>(
+    'SELECT COUNT(*) as count FROM messages WHERE project_id IS NULL'
+  );
+  return result.count;
+}

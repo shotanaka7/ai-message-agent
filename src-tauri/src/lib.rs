@@ -15,6 +15,12 @@ pub fn run() {
             sql: include_str!("../migrations/002_fts_tables.sql"),
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 3,
+            description: "add_project_classification_prompt",
+            sql: include_str!("../migrations/003_project_classification_prompt.sql"),
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()
